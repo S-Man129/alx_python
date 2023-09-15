@@ -1,4 +1,8 @@
+#!/usr/bin/python3
 # Print all possible different combinations of two digits
-for digit1 in range(10):
-    for digit2 in range(10):
-        print("{}{}".format(digit1,digit2))
+for num1 in range(10):
+    for num2 in range(num1 + 1, 10):
+        if num1 == 8 and num2 == 9:
+            print("{}{}".format(num1, num2))
+        else:
+            print("{}{}".format(num1, num2), end=", ")
