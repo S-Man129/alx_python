@@ -2,5 +2,5 @@
 #3-string.py
 
 def reverse_string(string):
-    reversed_str = string[:-1]
+    reversed_str = string[::-1]
     return reversed_str
