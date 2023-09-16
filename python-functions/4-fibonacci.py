@@ -13,4 +13,4 @@ def fibonacci_sequence(n):
             next_number = fibonacci_numbers[-1] + fibonacci_numbers[-2]
             fibonacci_numbers.append(next_number)
 
-        return fibonacci_numbers[:n]  # Return the first n Fibonacci numbers
+        return fibonacci_numbers[:n] 
