@@ -1,9 +1,7 @@
-# #!/usr/bin/python3
-""" Empty class BaseGeometry """
+#!/usr/bin/python3
+"""BaseGeometry class Module"""
 
-class BaseGeometry:
-    """ Empty class BaseGeometry """
-    def __dir__(self):
-        """ defining directory self """
-        return [attr for attr in dir(self) if attr != '__init_subclass__']
+
+class BaseGeometry():
+    """BaseGeometry empty class"""
     pass
