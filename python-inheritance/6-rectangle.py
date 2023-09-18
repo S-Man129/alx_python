@@ -11,5 +11,3 @@ class Rectangle(BaseGeometry):
         self.integer_validator("height", height)
         self.__width = width
         self.__height = height
-    
-    return [attr for attr in dir(self) if attr != '__init_subclass__']
