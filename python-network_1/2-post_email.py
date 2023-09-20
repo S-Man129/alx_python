@@ -2,11 +2,8 @@
 """
 Python script to send POST request to given URL with given email as parameter
 """
-import request
-import sys
-
 if __name__ == "__main__":
-    from urllib import request, parse
+    from urllib import requests, parse
     from sys import argv
     if argv[2]:
         data_1 = {}
