@@ -2,16 +2,23 @@
 """
 Python script to send POST request to given URL with given email as parameter
 """
-if __name__ == "__main__":
-    from urllib import requests, parse
-    from sys import argv
-    if argv[2]:
-        data_1 = {}
-        data_1['email'] = argv[2]
-        data_2 = parse.urlencode(data_1)
-        data = data_2.encode("UTF-8")
-    if argv[1]:
-        req = request.Request(argv[1], data)
-        with request.urlopen(req) as response:
-            content = response.read()
-            print(content.decode("UTF-8"))
+import requests
+import sys
+
+if len(sys.argv) != 3:
+    print("Usage: python script.py <URL> <email>")
+    sys.exit(1)
+
+url = sys.argv[1]
+email = sys.argv[2]
+
+data = {'email': email}
+
+try:
+    response = requests.post(url, data=data)
+    response.raise_for_status()  # Check for request success
+
+    print(response.text)
+
+except requests.exceptions.RequestException as e:
+    print(f"Request error: {e}")

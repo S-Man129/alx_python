@@ -7,20 +7,20 @@ also handles urllib.error.HTTPError exception
 import requests
 import sys
 
-if len(sys.argv) != 3:
-    print("Usage: python script.py <URL> <email>")
+if len(sys.argv) != 2:
+    print("Usage: python script.py <URL>")
     sys.exit(1)
 
 url = sys.argv[1]
-email = sys.argv[2]
-
-data = {'email': email}
 
 try:
-    response = requests.post(url, data=data)
+    response = requests.get(url)
     response.raise_for_status()  # Check for request success
 
-    print(response.text)
+    if response.status_code >= 400:
+        print(f"Error code: {response.status_code}")
+    else:
+        print(response.text)
 
 except requests.exceptions.RequestException as e:
     print(f"Request error: {e}")
