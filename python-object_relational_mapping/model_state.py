@@ -6,14 +6,14 @@ Base = declarative_base()
 class State(Base):
     """
     State class represents a table in the MySQL database.
-    
     Attributes:
         id (int): An auto-generated unique identifier for the state.
         name (str): A string representing the name of the state.
     """
     __tablename__ = 'states'
 
-    id = Column(Integer, primary_key=True, nullable=False, unique=True, autoincrement=True)
+    id = Column(Integer, primary_key=True,
+                nullable=False, unique=True, autoincrement=True)
     name = Column(String(128), nullable=False)
 
 # If you want to test the script, you can include the following block of code
