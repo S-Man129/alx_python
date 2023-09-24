@@ -5,22 +5,29 @@
 """
 
 
+import sys
 import MySQLdb
-from sys import argv
 
+if __name__ == '__main__':
+    if len(sys.argv) != 4:
+        print("Usage: python script.py <username> <password> <database>")
+        sys.exit(1)
 
-if __name__ == "__main__":
-    db = MySQLdb.connect(
-        host="localhost",
-        port=3306, user=argv[1],
-        passwd=argv[2],
-        db=argv[3])
-    cur = db.cursor()
-    cur.execute("""SELECT id, name FROM states WHERE
-         name COLLATE latin1_general_cs LIKE
-         'N%' ORDER BY id ASC;""")
-    rows = cur.fetchall()
-    for row in rows:
+    username = sys.argv[1]
+    password = sys.argv[2]
+    database = sys.argv[3]
+
+    # Create a connection to the MySQL server
+    db = MySQLdb.connect(host="localhost", port=3306, user=username, passwd=password, db=database)
+
+    # Create a cursor object to interact with the database
+    cursor = db.cursor()
+
+    cursor.execute("SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id")
+    results = cursor.fetchall()
+
+    for row in results:
         print(row)
-    cur.close()
+
+    cursor.close()
     db.close()
