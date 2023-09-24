@@ -24,8 +24,7 @@ if __name__ == '__main__':
 
     # Query the database to retrieve all State objects containing 'a'
     session_state = session.query(State)
-    order_state = order_by(State.id)
-    states = session_state.filter(State.name.like('%a%')).order_state.all()
+    states = session_state.filter(State.name.like('%a%')).order_by(State.id).all()
 
     # Display the results
     for state in states:
