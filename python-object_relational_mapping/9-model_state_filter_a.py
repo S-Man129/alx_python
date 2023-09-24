@@ -23,10 +23,13 @@ if __name__ == '__main__':
     session = Session()
 
     # Query the database to retrieve all State objects containing 'a'
-    states_with_a = session.query(State).filter(State.name.like('%a%')).order_by(State.id).all()
+    session_state = session.query(State)
+    filter_state = filter(State.name.like('%a%'))
+    order_state_id = order_by(State.id)
+    states = session_state.filter_state.order_state_id.all()
 
     # Display the results
-    for state in states_with_a:
+    for state in states:
         print(f"{state.id}: {state.name}")
 
     # Close the session
