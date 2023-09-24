@@ -1,10 +1,9 @@
 #!/usr/bin/python3
-"""Start link class to table in database
-"""
-import sys
-from model_state import Base, State
 
-from sqlalchemy import (create_engine)
+# Import necessary modules and classes
+import sys                 # Import the sys module to access command-line arguments
+from model_state import Base, State  # Import the Base and State classes from model_state
+from sqlalchemy import create_engine  # Import create_engine from SQLAlchemy
 
 if __name__ == "__main__":
     # Create an SQLAlchemy engine to connect to the database
@@ -15,4 +14,3 @@ if __name__ == "__main__":
     
     # Create the tables in the database based on the defined models (declarative_base)
     Base.metadata.create_all(engine)
-    
