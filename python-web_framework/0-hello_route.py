@@ -1,11 +1,17 @@
+#!/usr/bin/python3
+
 from flask import Flask
-""" Import flask framework"""
 
 app = Flask(__name__)
 
 @app.route('/', strict_slashes=False)
-def hello_hbnb(): 
-    #""" Defining the module Hello_hbnb """
+def hello_hbnb():
+    """
+    This route displays "Hello HBNB!" when accessed.
+
+    Returns:
+        str: The message "Hello HBNB!"
+    """
     return 'Hello HBNB!'
 
 if __name__ == '__main__':
