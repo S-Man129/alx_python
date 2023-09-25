@@ -1,7 +1,11 @@
 #!/usr/bin/python3
 
 from flask import Flask
-""" Importing flask for the program"""
+""" Importing flask and escape 
+    Flask: This module is imported to create and manage the Flask web application
+    escape (from Flask): This function is imported from Flask and is used to 
+    safely escape and format text for HTML output.
+"""
 
 app = Flask(__name__)
 
