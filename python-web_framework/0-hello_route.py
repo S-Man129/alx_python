@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 from flask import Flask
+""" Importing flask for the program"""
 
 app = Flask(__name__)
 
