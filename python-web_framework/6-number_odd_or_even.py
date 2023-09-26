@@ -80,7 +80,7 @@ def number_template(n):
     Returns:
         str: The HTML page.
     """
-    return render_template('5-number.html', n=n)
+    return render_template('templates/5-number.html', n=n)
 
 @app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
 def number_odd_or_even(n):
@@ -94,7 +94,7 @@ def number_odd_or_even(n):
         str: The HTML page with "Number: n is even|odd" inside the <H1> tag in the body.
     """
     result = "even" if n % 2 == 0 else "odd"
-    return render_template('6-number_odd_or_even.html', n=n, result=result)
+    return render_template('templates/6-number_odd_or_even.html', n=n, result=result)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
