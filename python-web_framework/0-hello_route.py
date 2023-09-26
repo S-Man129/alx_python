@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+"""  a script that starts a Flask web application and display "Hello HBNB!" """
 from flask import Flask
 """ Importing flask and escape 
     Flask: This module is imported to create and manage the Flask web application
