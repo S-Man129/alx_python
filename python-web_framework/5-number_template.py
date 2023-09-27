@@ -80,6 +80,7 @@ def number_template(n):
     Returns:
         str: The HTML page.
     """
+    n = 89
     return render_template('5-number.html', n=n)
 
 if __name__ == '__main__':
