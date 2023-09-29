@@ -79,8 +79,11 @@ def number_template(n):
     Returns:
         str: The HTML page with "Number: n" inside the <H1> tag in the body.
     """
-    n = int(n)
-    return render_template('5-number.html', n=n)
+    try:
+        n = int(n)  # Try to convert n to an integer
+        return render_template('5-number.html', n=n)
+    except ValueError:
+        return "Not Found", 404  # Return a 404 error if n is not an integer
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
