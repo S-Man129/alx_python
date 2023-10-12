@@ -1,40 +1,47 @@
+#!/usr/bin/python3
+'''Using what you did in the task #0, extend your Python script to export data
+in the CSV format.'''
+
 import csv
 import requests
 import sys
 
-def main():
-    if len(sys.argv) != 2:
-        print("Usage: python script_name.py <user_id>")
-        return
+base_url = 'https://jsonplaceholder.typicode.com/'
 
-    user_id = sys.argv[1]
-    user_endpoint = f'https://jsonplaceholder.typicode.com/users/{user_id}'
-    todos_endpoint = f'https://jsonplaceholder.typicode.com/todos/?userId={user_id}'
 
+def do_request():
+    ''' request '''
+
+    if not len(sys.argv):
+        return print('USAGE:', __file__, '<employee id>')
+    eid = sys.argv[1]
     try:
-        # Fetch user information
-        user_data = requests.get(user_endpoint).json()
-        name = user_data.get('name')
+        _eid = int(sys.argv[1])
+    except ValueError:
+        return print('Employee id must be an integer')
 
-        # Fetch TODO list
-        todos_data = requests.get(todos_endpoint).json()
+    response = requests.get(base_url + 'users/' + eid)
+    if response.status_code == 404:
+        return print('User id not found')
+    elif response.status_code != 200:
+        return print('Error: status_code:', response.status_code)
+    user = response.json()
 
-        # Create a CSV file for the user
-        csv_filename = f'{user_id}.csv'
-        with open(csv_filename, 'w', newline='') as csvfile:
-            csv_writer = csv.writer(csvfile)
-            csv_writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
+    response = requests.get(base_url + 'todos/')
+    if response.status_code != 200:
+        return print('Error: status_code:', response.status_code)
+    todos = response.json()
+    user_todos = [todo for todo in todos
+                  if todo.get('userId') == user.get('id')]
+    completed = [todo for todo in user_todos if todo.get('completed')]
 
-            for task in todos_data:
-                task_id = task['id']
-                task_title = task['title']
-                task_completed = task['completed']
-                csv_writer.writerow([user_id, name, task_completed, task_title])
+    with open(eid + '.csv', 'w') as csvfile:
+        writer = csv.writer(csvfile, lineterminator='\n',
+                            quoting=csv.QUOTE_ALL)
+        [writer.writerow(['{}'.format(field) for field in
+                          (todo.get('userId'), user.get('username'),
+                           todo.get('completed'), todo.get('title'))])
+         for todo in user_todos]
 
-        print(f'CSV data has been saved to {csv_filename}')
-
-    except requests.exceptions.RequestException as e:
-        print(f'An error occurred while fetching data: {e}')
-
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    do_request()
