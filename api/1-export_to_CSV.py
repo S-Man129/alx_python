@@ -1,6 +1,7 @@
+import csv
 import requests
 import sys
-import csv
+
 
 def main():
     if len(sys.argv) != 2:
