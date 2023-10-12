@@ -1,9 +1,6 @@
 #!/usr/bin/python3
-""" 
-0-gather_data_from_an_API
-
-Given employee ID, returns information
-about his/her todo list progress.
+""" Given employee ID, returns information
+    about his/her todo list progress.
 """
 import requests
 import sys
