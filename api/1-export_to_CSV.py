@@ -2,7 +2,6 @@ import csv
 import requests
 import sys
 
-
 def main():
     if len(sys.argv) != 2:
         print("Usage: python script_name.py <user_id>")
