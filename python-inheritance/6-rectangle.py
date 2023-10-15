@@ -7,9 +7,7 @@ class NoInitSubclassMeta(type):
         cls.__init_subclass__ = lambda *args, **kwargs: None
 
     def __dir__(self):
-        default_dir = super().__dir__()
-        default_dir.remove('__init_subclass__')
-        return default_dir
+        return [attr for attr in dir(self) if not attr == '__init_subclass__']
 
 class Rectangle(BaseGeometry, metaclass=NoInitSubclassMeta):
     """Rectangle class"""
