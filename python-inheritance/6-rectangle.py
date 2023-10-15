@@ -12,4 +12,5 @@ class Rectangle(BaseGeometry, metaclass=NoInitSubclassMeta):
         self.__height = height
     
     def __dir__(self):
+        """Remove init_subclass"""
         return [attr for attr in dir(self) if not attr == '__init_subclass__']
