@@ -13,6 +13,10 @@ class BaseGeometryMeta(type):
 
 class BaseGeometry(metaclass=BaseGeometryMeta):
     """BaseGeometry class Module"""
+    def __dir__(self):
+        default_dir = super().__dir__()
+        default_dir.remove('__init_subclass__')
+        return default_dir
     pass
 
 
