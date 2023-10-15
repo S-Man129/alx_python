@@ -9,10 +9,7 @@ class RectangleMeta(type):
 
 class Rectangle(metaclass=RectangleMeta):
     """Rectangle class"""
-    def __dir__(self):
-        default_dir = super().__dir__()
-        default_dir.remove('__init_subclass__')
-        return default_dir
+    
 
 class Rectangle(BaseGeometry):
     """Rectangle class"""
@@ -22,3 +19,8 @@ class Rectangle(BaseGeometry):
         self.__width = width
         self.integer_validator("height", height)
         self.__height = height
+    
+    def __dir__(self):
+        default_dir = super().__dir__()
+        default_dir.remove('__init_subclass__')
+        return default_dir
