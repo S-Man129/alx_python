@@ -4,7 +4,12 @@ BaseGeometry = __import__("5-base_geometry").BaseGeometry
 
 class NoInitSubclassMeta(type):
     def __init_subclass__(cls):
-        pass
+        cls.__init_subclass__ = lambda *args, **kwargs: None
+
+    def __dir__(self):
+        default_dir = super().__dir__()
+        default_dir.remove('__init_subclass__')
+        return default_dir
 
 class Rectangle(BaseGeometry, metaclass=NoInitSubclassMeta):
     """Rectangle class"""
