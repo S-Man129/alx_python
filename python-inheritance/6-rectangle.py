@@ -7,10 +7,6 @@ class RectangleMeta(type):
     def __init_subclass__(cls):
         cls.__init_subclass__ = lambda *args, **kwargs: None
 
-class Rectangle(metaclass=RectangleMeta):
-    """Rectangle class"""
-    
-
 class Rectangle(BaseGeometry):
     """Rectangle class"""
     def __init__(self, width, height):
