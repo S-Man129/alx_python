@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 """ Class Rectangle """
 
+BaseGeometry = __import__('5-base_geometry').BaseGeometry
+
 class BaseGeometryMeta(type):
     def __init_subclass__(cls):
         cls.__init_subclass__ = lambda *args, **kwargs: None
