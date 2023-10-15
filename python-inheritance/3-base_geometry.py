@@ -7,6 +7,7 @@ class BaseGeometryMeta(type):
         cls.__init_subclass__ = lambda *args, **kwargs: None
 
 class BaseGeometry(metaclass=BaseGeometryMeta):
+    """Base empty class"""
     def __dir__(self):
         default_dir = super().__dir__()
         if '__init_subclass__' in default_dir:
