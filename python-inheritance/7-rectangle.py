@@ -2,8 +2,16 @@
 """ Class Rectangle """
 BaseGeometry = __import__('5-base_geometry').BaseGeometry
 
+class NoInitSubclassMeta(type):
+    def __init_subclass__(cls):
+        cls.__init_subclass__ = lambda *args, **kwargs: None
 
-class Rectangle(BaseGeometry):
+    def __dir__(self):
+        default_dir = super().__dir__()
+        default_dir.remove('__init_subclass__')
+        return default_dir
+
+class Rectangle(BaseGeometry, metaclass=NoInitSubclassMeta):
     """ Class Rectangle """
     def __init__(self, width, height):
         """ init method """
