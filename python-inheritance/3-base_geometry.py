@@ -2,17 +2,19 @@
 """BaseGeometry class Module"""
 
 class BaseGeometryMeta(type):
-    """BaseGeometry Class"""
+    """BaseGeometryMeta class """
     def __init_subclass__(cls):
         cls.__init_subclass__ = lambda *args, **kwargs: None
 
-class BaseGeometry(metaclass=BaseGeometryMeta):
-    """BaseGeometry Class"""
     def __dir__(self):
         default_dir = super().__dir__()
-        if '__init_subclass__' in default_dir:
-            default_dir.remove('__init_subclass__')
+        default_dir.remove('__init_subclass__')
         return default_dir
+
+class BaseGeometry(metaclass=BaseGeometryMeta):
+    """BaseGeometry class Module"""
+    pass
+
 
 
 
