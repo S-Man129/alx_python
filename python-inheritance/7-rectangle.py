@@ -1,13 +1,21 @@
 #!/usr/bin/python3
-"""Rectangle class Module"""
-BaseGeometry = __import__("5-base_geometry").BaseGeometry
+""" Class Rectangle """
+BaseGeometry = __import__('5-base_geometry').BaseGeometry
 
 
 class Rectangle(BaseGeometry):
-    """Rectangle class"""
+    """ Class Rectangle """
     def __init__(self, width, height):
-        """Initilize rectangle method"""
+        """ init method """
         self.integer_validator("width", width)
-        self.__width = width
         self.integer_validator("height", height)
+        self.__width = width
         self.__height = height
+
+    def area(self):
+        """ return area """
+        return self.__width * self.__height
+
+    def __str__(self):
+        """ __str__ method """
+        return("[Rectangle] {:d}/{:d}".format(self.__width, self.__height))
