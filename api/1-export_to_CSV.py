@@ -50,7 +50,7 @@ def main():
             csv_writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
 
             for todo in todos_data:
-                csv_writer.writerow(user_id, name, todo['completed'], todo['title'])
+                csv_writer.writerow([user_id, name, todo['completed'], todo['title']])
 
         print(f'CSV data has been saved to {csv_filename}')
 
