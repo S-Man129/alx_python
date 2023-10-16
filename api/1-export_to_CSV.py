@@ -58,9 +58,9 @@ def main():
         with open(csv_filename, 'r') as csv_file:
             num_tasks_in_csv = sum(1 for _ in csv_file) - 1  # Subtract 1 for the header
         if num_tasks_in_csv == len(todos_data):
-            print('Correct number of tasks in CSV')
+            print("Number of tasks in CSV: OK")
         else:
-            print('Incorrect number of tasks in CSV')
+            print("Number of tasks in CSV: Incorrect")
 
     except requests.exceptions.RequestException as e:
         print(f'An error occurred while fetching data: {e}')
