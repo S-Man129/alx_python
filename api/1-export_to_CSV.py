@@ -5,30 +5,36 @@ import csv
 import requests
 import sys
 
-users_url = "https://jsonplaceholder.typicode.com/users?id="
-todos_url = "https://jsonplaceholder.typicode.com/todos"
+def main():
+    if len(sys.argv) != 2:
+        print("Usage: python script_name.py <user_id>")
+        return
 
+    user_id = sys.argv[1]
+    user_endpoint = f'https://jsonplaceholder.typicode.com/users/{user_id}'
+    todos_endpoint = f'https://jsonplaceholder.typicode.com/todos/?userId={user_id}'
 
-def user_info(id):
-    """ Check user information """
+    try:
+        # Fetch user information
+        user_data = requests.get(user_endpoint).json()
+        name = user_data.get('name')
 
-    total_tasks = 0
-    response = requests.get(todos_url).json()
-    for i in response:
-        if i['userId'] == id:
-            total_tasks += 1
+        # Fetch TODO list
+        todos_data = requests.get(todos_endpoint).json()
 
-    num_lines = 0
-    with open(str(id) + ".csv", 'r') as f:
-        for line in f:
-            if not line == '\n':
-                num_lines += 1
+        # Create a CSV file for the user
+        csv_filename = f'{user_id}.csv'
+        with open(csv_filename, 'w', newline='') as csvfile:
+            csv_writer = csv.writer(csvfile)
+            csv_writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
 
-    if total_tasks == num_lines:
-        print("Number of tasks in CSV: OK")
-    else:
-        print("Number of tasks in CSV: Incorrect")
+            for todo in todos_data:
+                csv_writer.writerow([user_id, name, todo['completed'], todo['title']])
 
+        print(f'CSV data has been saved to {csv_filename}')
+
+    except requests.exceptions.RequestException as e:
+        print(f'An error occurred while fetching data: {e}')
 
 if __name__ == "__main__":
-    user_info(int(sys.argv[1]))
+    main()
