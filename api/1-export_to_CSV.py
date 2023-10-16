@@ -50,9 +50,17 @@ def main():
             csv_writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
 
             for todo in todos_data:
-                csv_writer.writerow([user_id, name, todo['completed'], todo['title']])
+                csv_writer.writerow(user_id, name, todo['completed'], todo['title'])
 
         print(f'CSV data has been saved to {csv_filename}')
+
+        # Check the number of tasks in the CSV
+        with open(csv_filename, 'r') as csv_file:
+            num_tasks_in_csv = sum(1 for _ in csv_file) - 1  # Subtract 1 for the header
+        if num_tasks_in_csv == len(todos_data):
+            print('Correct number of tasks in CSV')
+        else:
+            print('Incorrect number of tasks in CSV')
 
     except requests.exceptions.RequestException as e:
         print(f'An error occurred while fetching data: {e}')
