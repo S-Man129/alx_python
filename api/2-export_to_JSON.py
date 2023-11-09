@@ -1,47 +1,35 @@
 #!/usr/bin/python3
-'''Using what you did in the task #0, extend your Python script to export data
-in the JSON format.'''
+"""
+Python script to export data to a JSON file.
+"""
 
 import json
 import requests
 import sys
 
-base_url = 'https://jsonplaceholder.typicode.com/'
+
+def export_to_CSV(user_id):
+    employee_name = requests.get(
+        "https://jsonplaceholder.typicode.com/users/{}".format(user_id)
+    ).json()["username"]
+    tasks = requests.get(
+        "https://jsonplaceholder.typicode.com/users/{}/todos".format(user_id)
+    ).json()
+
+    tasks_data = {str(user_id): []}
+
+    for task in tasks:
+        tasks_data[str(user_id)].append(
+            {
+                "task": task["title"],
+                "completed": task["completed"],
+                "username": employee_name,
+            }
+        )
+
+    with open(str(user_id) + ".json", "w", encoding="UTF8", newline="") as f:
+        json.dump(tasks_data, f)
 
 
-def do_request():
-    ''' request '''
-
-    if len(sys.argv) < 2:
-        return print('USAGE:', __file__, '<employee id>')
-    eid = sys.argv[1]
-    try:
-        _eid = int(sys.argv[1])
-    except ValueError:
-        return print('Employee id must be an integer')
-
-    response = requests.get(base_url + 'users/' + eid)
-    if response.status_code == 404:
-        return print('User id not found')
-    elif response.status_code != 200:
-        return print('Error: status_code:', response.status_code)
-    user = response.json()
-
-    response = requests.get(base_url + 'todos/')
-    if response.status_code != 200:
-        return print('Error: status_code:', response.status_code)
-    todos = response.json()
-    user_todos = [todo for todo in todos
-                  if todo.get('userId') == user.get('id')]
-    completed = [todo for todo in user_todos if todo.get('completed')]
-
-    user_todos = [{'task': todo.get('title'),
-                   'completed': todo.get('completed'),
-                   'username': user.get('username')}
-                  for todo in user_todos]
-    data = {eid: user_todos}
-    with open(eid + '.json', 'w') as file:
-        json.dump(data, file)
-
-if __name__ == '__main__':
-    do_request()
+if __name__ == "__main__":
+    export_to_CSV(sys.argv[1])
